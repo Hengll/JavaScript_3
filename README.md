@@ -1,2 +1,2 @@
-# JavaSript_3
+# JavaScript_3
 時鐘練習
