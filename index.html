@@ -89,31 +89,31 @@
 
         @keyframes filter-change {
             0% {
-                filter: drop-shadow(0px 0px 5px red);
+                filter: drop-shadow(0px 0px 8px red);
             }
 
             16% {
-                filter: drop-shadow(0px 0px 5px orange);
+                filter: drop-shadow(0px 0px 8px orange);
             }
 
             33% {
-                filter: drop-shadow(0px 0px 5px yellow);
+                filter: drop-shadow(0px 0px 8px yellow);
             }
 
             49% {
-                filter: drop-shadow(0px 0px 5px green);
+                filter: drop-shadow(0px 0px 8px green);
             }
 
             61% {
-                filter: drop-shadow(0px 0px 5px blue);
+                filter: drop-shadow(0px 0px 8px blue);
             }
 
             81% {
-                filter: drop-shadow(0px 0px 5px indigo);
+                filter: drop-shadow(0px 0px 8px indigo);
             }
 
             100% {
-                filter: drop-shadow(0px 0px 5px purple);
+                filter: drop-shadow(0px 0px 8px purple);
             }
         }
 
@@ -124,6 +124,23 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+        }
+
+        #date-box {
+            width: 100%;
+            height: 20%;
+            position: absolute;
+            top: -30%;
+            text-align: center;
+        }
+
+        #date {
+            font-size: 5rem;
+            font-family: Calibri;
+            font-weight: bolder;
+            color: white;
+            transition: 1s;
+            animation: filter-changeTime 30s infinite;
         }
 
         #clock {
@@ -156,121 +173,20 @@
             z-index: -2;
         }
 
-        #t12 {
-            width: 2.2rem;
-            height: 2.2rem;
-            line-height: 2.2rem;
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        #t1 {
-            width: 2.2rem;
-            height: 2.2rem;
-            line-height: 2.2rem;
-            position: absolute;
-            top: calc(50% * 0.134);
-            right: calc(50% * 0.5);
-            transform: translate(30%, 20%);
-        }
-
-        #t2 {
-            width: 2.2rem;
-            height: 2.2rem;
-            line-height: 2.2rem;
-            position: absolute;
-            top: calc(50% * 0.5);
-            right: calc(50% * 0.134);
-        }
-
-        #t3 {
-            width: 2.2rem;
-            height: 2.2rem;
-            line-height: 2.2rem;
+        #box-center {
+            width: 50%;
+            height: 50%;
             position: absolute;
             top: 50%;
-            right: 0;
-            transform: translate(0, -50%);
-        }
-
-        #t4 {
-            width: 2.2rem;
-            height: 2.2rem;
-            line-height: 2.2rem;
-            position: absolute;
-            bottom: calc(50% * 0.5);
-            right: calc(50% * 0.134);
-        }
-
-        #t5 {
-            width: 2.2rem;
-            height: 2.2rem;
-            line-height: 2.2rem;
-            position: absolute;
-            bottom: calc(50% * 0.134);
-            right: calc(50% * 0.5);
-            transform: translate(30%, 0%);
-        }
-
-        #t6 {
-            width: 2.2rem;
-            height: 2.2rem;
-            line-height: 2.2rem;
-            position: absolute;
-            bottom: 0;
             left: 50%;
-            transform: translateX(-50%);
         }
 
-        #t7 {
+        .clock-num {
             width: 2.2rem;
             height: 2.2rem;
             line-height: 2.2rem;
             position: absolute;
-            bottom: calc(50% * 0.134);
-            left: calc(50% * 0.5);
-            transform: translate(-30%, 0%);
-        }
-
-
-        #t8 {
-            width: 2.2rem;
-            height: 2.2rem;
-            line-height: 2.2rem;
-            position: absolute;
-            bottom: calc(50% * 0.5);
-            left: calc(50% * 0.134);
-        }
-
-        #t9 {
-            width: 2.2rem;
-            height: 2.2rem;
-            line-height: 2.2rem;
-            position: absolute;
-            top: 50%;
-            left: 0;
-            transform: translate(0, -50%);
-        }
-
-        #t10 {
-            width: 2.2rem;
-            height: 2.2rem;
-            line-height: 2.2rem;
-            position: absolute;
-            top: calc(50% * 0.5);
-            left: calc(50% * 0.134);
-        }
-
-        #t11 {
-            width: 2.2rem;
-            height: 2.2rem;
-            line-height: 2.2rem;
-            position: absolute;
-            top: calc(50% * 0.134);
-            left: calc(50% * 0.5);
-            transform: translate(-30%, 20%);
+            transform: translate(-50%, -50%);
         }
 
         #clock:hover {
@@ -331,45 +247,36 @@
             width: 100%;
             height: 20%;
             position: absolute;
-            top: 80%;
+            top: 110%;
+            text-align: center;
         }
 
         #time {
             font-size: 5rem;
+            font-family: Calibri;
             color: white;
-            position: absolute;
-            top: 180%;
-            left: 50%;
-            transform: translate(-50%, -50%);
             transition: 1s;
             animation: filter-changeTime 30s infinite;
         }
 
         #time:hover {
-            transform: translate(-50%, -50%) scale(1.2);
+            transform: scale(1.2);
         }
     </style>
 </head>
 
 <body>
     <div id="contanier">
+        <div id="date-box">
+            <p id="date"></p>
+        </div>
         <div id="clock">
             <div id="dot"></div>
             <div id="minuteHand"></div>
             <div id="hourHand"></div>
             <div id="secondHand"></div>
-            <div id="t12">12</div>
-            <div id="t1">1</div>
-            <div id="t2">2</div>
-            <div id="t3">3</div>
-            <div id="t4">4</div>
-            <div id="t5">5</div>
-            <div id="t6">6</div>
-            <div id="t7">7</div>
-            <div id="t8">8</div>
-            <div id="t9">9</div>
-            <div id="t10">10</div>
-            <div id="t11">11</div>
+            <!-- 中心點，用來幫助定位數字1~12 -->
+            <div id="box-center"></div>
         </div>
         <div id="time-box">
             <p id="time"></p>
@@ -377,16 +284,30 @@
     </div>
     <script>
         const time = document.getElementById('time')
+        const date = document.getElementById('date')
         const secondHand = document.getElementById('secondHand')
         const minuteHand = document.getElementById('minuteHand')
         const hourHand = document.getElementById('hourHand')
+        const boxCenter = document.getElementById('box-center')
 
+        // 生成時鐘上1~12數字
+        for (let i = 1; i <= 12; i++) {
+            const clockNum = document.createElement('div')
+            boxCenter.append(clockNum)
+            clockNum.classList.add('clock-num')
+            clockNum.innerText = i
+            clockNum.style.top = `${(boxCenter.offsetWidth - 18) * (Math.round(Math.sin((i * 30 - 90) * Math.PI / 180) * 10000) / 10000)}px`
+            clockNum.style.left = `${(boxCenter.offsetWidth - 18) * (Math.round(Math.cos((i * 30 - 90) * Math.PI / 180) * 10000) / 10000)}px`
+        }
+
+        // 設定時鐘指針旋轉及時間顯示
         const setDate = () => {
             const now = new Date()
             const h = now.getHours()
             const m = now.getMinutes()
             const s = now.getSeconds()
             time.innerText = now.toTimeString().slice(0, 8)
+            date.innerText = now.toLocaleDateString()
             secondHand.style.transform = `translate(-50%, -50%) rotate(${s * 6 - 90}deg)`;
             minuteHand.style.transform = `translate(-50%, -50%) rotate(${(m * 60 + s) / 10 - 90}deg)`;
             hourHand.style.transform = `translate(-50%, -50%) rotate(${((h % 12) * 3600 + m * 60 + s) / 120 - 90}deg)`;
