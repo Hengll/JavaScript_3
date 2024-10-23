@@ -1,2 +1,2 @@
-# JavaScript_3
+# js_clock
 時鐘練習
