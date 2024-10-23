@@ -159,6 +159,13 @@
             animation: box-change 30s infinite;
         }
 
+        .clock-scale {
+            width: 1px;
+            height: 12px;
+            background: white;
+            position: absolute;
+        }
+
         #clock::before {
             content: '';
             border-radius: 50%;
@@ -299,6 +306,15 @@
             clockNum.style.top = `${(boxCenter.offsetWidth - 18) * (Math.round(Math.sin((i * 30 - 90) * Math.PI / 180) * 10000) / 10000)}px`
             clockNum.style.left = `${(boxCenter.offsetWidth - 18) * (Math.round(Math.cos((i * 30 - 90) * Math.PI / 180) * 10000) / 10000)}px`
         }
+        // 生成刻度
+        for (let i = 1; i <= 60; i++) {
+            const clockScale = document.createElement('div')
+            boxCenter.append(clockScale)
+            clockScale.classList.add('clock-scale')
+            clockScale.style.top = `${(boxCenter.offsetWidth) * (Math.round(Math.sin(i * 6 * Math.PI / 180) * 10000) / 10000)}px`
+            clockScale.style.left = `${(boxCenter.offsetWidth) * (Math.round(Math.cos(i * 6 * Math.PI / 180) * 10000) / 10000)}px`
+            clockScale.style.transform = `translate(-50%, -50%) rotate(${i * 6 - 90}deg)`
+        }
 
         // 設定時鐘指針旋轉及時間顯示
         const setDate = () => {
@@ -308,9 +324,9 @@
             const s = now.getSeconds()
             time.innerText = now.toTimeString().slice(0, 8)
             date.innerText = now.toLocaleDateString()
-            secondHand.style.transform = `translate(-50%, -50%) rotate(${s * 6 - 90}deg)`;
-            minuteHand.style.transform = `translate(-50%, -50%) rotate(${(m * 60 + s) / 10 - 90}deg)`;
-            hourHand.style.transform = `translate(-50%, -50%) rotate(${((h % 12) * 3600 + m * 60 + s) / 120 - 90}deg)`;
+            secondHand.style.transform = `translate(-50%, -50%) rotate(${s * 6 - 90}deg)`
+            minuteHand.style.transform = `translate(-50%, -50%) rotate(${(m * 60 + s) / 10 - 90}deg)`
+            hourHand.style.transform = `translate(-50%, -50%) rotate(${((h % 12) * 3600 + m * 60 + s) / 120 - 90}deg)`
         }
 
         setDate()
