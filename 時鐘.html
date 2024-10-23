@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="zh-Tw">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>時鐘</title>
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-image: url('https://images.pexels.com/photos/1629236/pexels-photo-1629236.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+            background-repeat: no-repeat;
+            background-size: 100% 100vh;
+        }
+
+        @keyframes box-change {
+            0% {
+                box-shadow: inset 0 0 50px red,
+                    0 0 50px red;
+            }
+
+            16% {
+                box-shadow: inset 0 0 50px orange,
+                    0 0 50px orange;
+            }
+
+            33% {
+                box-shadow: inset 0 0 50px yellow,
+                    0 0 50px yellow;
+            }
+
+            49% {
+                box-shadow: inset 0 0 50px green,
+                    0 0 50px green;
+            }
+
+            65% {
+                box-shadow: inset 0 0 50px blue,
+                    0 0 50px blue;
+            }
+
+            81% {
+                box-shadow: inset 0 0 50px indigo,
+                    0 0 50px indigo;
+            }
+
+            100% {
+                box-shadow: inset 0 0 50px purple,
+                    0 0 50px purple;
+            }
+        }
+
+        @keyframes filter-changeTime {
+            0% {
+                filter: drop-shadow(5px 5px 5px red);
+            }
+
+            16% {
+                filter: drop-shadow(5px 5px 5px orange);
+            }
+
+            33% {
+                filter: drop-shadow(5px 5px 5px yellow);
+            }
+
+            49% {
+                filter: drop-shadow(5px 5px 5px green);
+            }
+
+            65% {
+                filter: drop-shadow(5px 5px 5px blue);
+            }
+
+            81% {
+                filter: drop-shadow(5px 5px 5px indigo);
+            }
+
+            100% {
+                filter: drop-shadow(5px 5px 5px purple);
+            }
+        }
+
+        @keyframes filter-change {
+            0% {
+                filter: drop-shadow(0px 0px 5px red);
+            }
+
+            16% {
+                filter: drop-shadow(0px 0px 5px orange);
+            }
+
+            33% {
+                filter: drop-shadow(0px 0px 5px yellow);
+            }
+
+            49% {
+                filter: drop-shadow(0px 0px 5px green);
+            }
+
+            61% {
+                filter: drop-shadow(0px 0px 5px blue);
+            }
+
+            81% {
+                filter: drop-shadow(0px 0px 5px indigo);
+            }
+
+            100% {
+                filter: drop-shadow(0px 0px 5px purple);
+            }
+        }
+
+        #contanier {
+            width: 50vh;
+            height: 50vh;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #clock {
+            border: 6px solid white;
+            border-radius: 50%;
+            width: 80%;
+            height: 80%;
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: 1s;
+            color: white;
+            font-size: 2rem;
+            text-align: center;
+            animation: box-change 30s infinite;
+        }
+
+        #clock::before {
+            content: '';
+            border-radius: 50%;
+            background-image: linear-gradient(to right, black 1px, transparent 1px), linear-gradient(to bottom, black 1px, transparent 1px);
+            background-size: 1% 1%;
+            background-repeat: repeat-x repeat-y;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -2;
+        }
+
+        #t12 {
+            width: 2.2rem;
+            height: 2.2rem;
+            line-height: 2.2rem;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        #t1 {
+            width: 2.2rem;
+            height: 2.2rem;
+            line-height: 2.2rem;
+            position: absolute;
+            top: calc(50% * 0.134);
+            right: calc(50% * 0.5);
+            transform: translate(30%, 20%);
+        }
+
+        #t2 {
+            width: 2.2rem;
+            height: 2.2rem;
+            line-height: 2.2rem;
+            position: absolute;
+            top: calc(50% * 0.5);
+            right: calc(50% * 0.134);
+        }
+
+        #t3 {
+            width: 2.2rem;
+            height: 2.2rem;
+            line-height: 2.2rem;
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translate(0, -50%);
+        }
+
+        #t4 {
+            width: 2.2rem;
+            height: 2.2rem;
+            line-height: 2.2rem;
+            position: absolute;
+            bottom: calc(50% * 0.5);
+            right: calc(50% * 0.134);
+        }
+
+        #t5 {
+            width: 2.2rem;
+            height: 2.2rem;
+            line-height: 2.2rem;
+            position: absolute;
+            bottom: calc(50% * 0.134);
+            right: calc(50% * 0.5);
+            transform: translate(30%, 0%);
+        }
+
+        #t6 {
+            width: 2.2rem;
+            height: 2.2rem;
+            line-height: 2.2rem;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        #t7 {
+            width: 2.2rem;
+            height: 2.2rem;
+            line-height: 2.2rem;
+            position: absolute;
+            bottom: calc(50% * 0.134);
+            left: calc(50% * 0.5);
+            transform: translate(-30%, 0%);
+        }
+
+
+        #t8 {
+            width: 2.2rem;
+            height: 2.2rem;
+            line-height: 2.2rem;
+            position: absolute;
+            bottom: calc(50% * 0.5);
+            left: calc(50% * 0.134);
+        }
+
+        #t9 {
+            width: 2.2rem;
+            height: 2.2rem;
+            line-height: 2.2rem;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translate(0, -50%);
+        }
+
+        #t10 {
+            width: 2.2rem;
+            height: 2.2rem;
+            line-height: 2.2rem;
+            position: absolute;
+            top: calc(50% * 0.5);
+            left: calc(50% * 0.134);
+        }
+
+        #t11 {
+            width: 2.2rem;
+            height: 2.2rem;
+            line-height: 2.2rem;
+            position: absolute;
+            top: calc(50% * 0.134);
+            left: calc(50% * 0.5);
+            transform: translate(-30%, 20%);
+        }
+
+        #clock:hover {
+            backdrop-filter: blur(5px);
+            transform: translateX(-50%) scale(1.2);
+        }
+
+        #secondHand {
+            border-radius: 50px 50px;
+            background: linear-gradient(to right, transparent 50%, white 50%);
+            width: 80%;
+            height: 2px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: 1;
+            animation: filter-change 30s infinite;
+        }
+
+        #minuteHand {
+            border-radius: 50px 50px;
+            background: linear-gradient(to right, transparent 50%, lightgreen 50%);
+            width: 80%;
+            height: 3%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: -1;
+            animation: filter-change 30s infinite;
+        }
+
+        #hourHand {
+            border-radius: 50px 50px;
+            background: linear-gradient(to right, transparent 50%, lightblue 50%);
+            width: 50%;
+            height: 3%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: 0;
+            animation: filter-change 30s infinite;
+        }
+
+        #dot {
+            background: white;
+            border-radius: 50%;
+            width: 8%;
+            height: 8%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            animation: filter-change 30s infinite;
+        }
+
+        #time-box {
+            width: 100%;
+            height: 20%;
+            position: absolute;
+            top: 80%;
+        }
+
+        #time {
+            font-size: 5rem;
+            color: white;
+            position: absolute;
+            top: 180%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: 1s;
+            animation: filter-changeTime 30s infinite;
+        }
+
+        #time:hover {
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="contanier">
+        <div id="clock">
+            <div id="dot"></div>
+            <div id="minuteHand"></div>
+            <div id="hourHand"></div>
+            <div id="secondHand"></div>
+            <div id="t12">12</div>
+            <div id="t1">1</div>
+            <div id="t2">2</div>
+            <div id="t3">3</div>
+            <div id="t4">4</div>
+            <div id="t5">5</div>
+            <div id="t6">6</div>
+            <div id="t7">7</div>
+            <div id="t8">8</div>
+            <div id="t9">9</div>
+            <div id="t10">10</div>
+            <div id="t11">11</div>
+        </div>
+        <div id="time-box">
+            <p id="time"></p>
+        </div>
+    </div>
+    <script>
+        const time = document.getElementById('time')
+        const secondHand = document.getElementById('secondHand')
+        const minuteHand = document.getElementById('minuteHand')
+        const hourHand = document.getElementById('hourHand')
+
+        const setDate = () => {
+            const now = new Date()
+            const h = now.getHours()
+            const m = now.getMinutes()
+            const s = now.getSeconds()
+            time.innerText = now.toTimeString().slice(0, 8)
+            secondHand.style.transform = `translate(-50%, -50%) rotate(${s * 6 - 90}deg)`;
+            minuteHand.style.transform = `translate(-50%, -50%) rotate(${(m * 60 + s) / 10 - 90}deg)`;
+            hourHand.style.transform = `translate(-50%, -50%) rotate(${((h % 12) * 3600 + m * 60 + s) / 120 - 90}deg)`;
+        }
+
+        setDate()
+        setInterval(setDate, 500)
+    </script>
+</body>
+
+</html>
