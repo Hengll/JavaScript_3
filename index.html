@@ -130,7 +130,7 @@
             width: 100%;
             height: 20%;
             position: absolute;
-            top: -30%;
+            top: -25%;
             text-align: center;
         }
 
@@ -254,7 +254,7 @@
             width: 100%;
             height: 20%;
             position: absolute;
-            top: 110%;
+            top: 100%;
             text-align: center;
         }
 
@@ -266,8 +266,56 @@
             animation: filter-changeTime 30s infinite;
         }
 
-        #time:hover {
-            transform: scale(1.2);
+        #btns {
+            text-align: center;
+            margin: 30px;
+        }
+
+        .white-border {
+            box-shadow: 0 0 20px white;
+        }
+
+        #btns input {
+            width: 80px;
+            height: 50px;
+            font-size: 1.5rem;
+            background: transparent;
+            color: white;
+            border-radius: 5px;
+        }
+
+        #watch-btns {
+            width: 100%;
+            position: absolute;
+            text-align: center;
+            display: none;
+        }
+
+        #watch-btns input {
+            width: 80px;
+            height: 50px;
+            font-size: 1.5rem;
+            background: transparent;
+            color: white;
+            border-radius: 5px;
+        }
+
+        #btn-watch-pause {
+            position: absolute;
+            left: calc(50% - 80px);
+            visibility: hidden;
+        }
+
+        #watch-time {
+            width: 100%;
+            font-size: 5rem;
+            font-family: Calibri;
+            color: white;
+            transition: 1s;
+            animation: filter-changeTime 30s infinite;
+            position: absolute;
+            top: 0;
+            opacity: 0;
         }
     </style>
 </head>
@@ -287,7 +335,17 @@
         </div>
         <div id="time-box">
             <p id="time"></p>
+            <p id="watch-time">00:00:00</p>
+            <div id="watch-btns">
+                <input type="button" id="btn-watch-start" value="開始">
+                <input type="button" id="btn-watch-pause" value="暫停">
+                <input type="button" id="btn-watch-reset" value="重置">
+            </div>
         </div>
+    </div>
+    <div id="btns">
+        <input type="button" id="btn-clock" value="時鐘" class="white-border" disabled="true">
+        <input type="button" id="btn-watch" value="碼表">
     </div>
     <script>
         const time = document.getElementById('time')
@@ -296,6 +354,14 @@
         const minuteHand = document.getElementById('minuteHand')
         const hourHand = document.getElementById('hourHand')
         const boxCenter = document.getElementById('box-center')
+        const btnClock = document.getElementById('btn-clock')
+        const btnWatch = document.getElementById('btn-watch')
+        const divWatchBtns = document.getElementById('watch-btns')
+        const btnWatchStart = document.getElementById('btn-watch-start')
+        const btnWatchPause = document.getElementById('btn-watch-pause')
+        const btnWatchReset = document.getElementById('btn-watch-reset')
+        const watchTime = document.getElementById('watch-time')
+        let countTime = 0
 
         // 生成時鐘上1~12數字
         for (let i = 1; i <= 12; i++) {
@@ -329,8 +395,89 @@
             hourHand.style.transform = `translate(-50%, -50%) rotate(${((h % 12) * 3600 + m * 60 + s) / 120 - 90}deg)`
         }
 
+        // 碼表開始跑
+        const watchStrat = () => {
+            countTime++
+            const wms = countTime % 100
+            const ws = Math.floor(countTime / 100) % 60
+            const wm = Math.floor(countTime / 6000)
+
+            watchTime.innerText = `${wm}`.padStart(2, '0') + ':' + `${ws}`.padStart(2, '0') + ':' + `${wms}`.padStart(2, '0')
+            secondHand.style.transform = `translate(-50%, -50%) rotate(${countTime % 6000 * 0.06 - 90}deg)`
+            minuteHand.style.transform = `translate(-50%, -50%) rotate(${(wm * 60 + ws) / 10 - 90}deg)`
+        }
+
+        // 碼表歸零
+        const watchReset = () => {
+            countTime = 0
+            watchTime.innerText = '00:00:00'
+            secondHand.style.transform = 'translate(-50%, -50%) rotate(-90deg)'
+            minuteHand.style.transform = 'translate(-50%, -50%) rotate(-90deg)'
+            btnWatchStart.style.visibility = 'visible'
+            btnWatchPause.style.visibility = 'hidden'
+        }
+
+        // 預設跑時鐘
         setDate()
-        setInterval(setDate, 500)
+
+        // 時鐘的計時器
+        let setDateInt = setInterval(setDate, 500)
+        // 碼表的計時器
+        let watchStartInt
+
+        // 切換碼表
+        btnWatch.addEventListener('click', function () {
+            // 元素的顯示切換
+            btnClock.disabled = false
+            btnWatch.disabled = true
+            btnClock.classList.remove('white-border')
+            btnWatch.classList.add('white-border')
+            divWatchBtns.style.display = 'block'
+            date.style.opacity = '0'
+            watchTime.style.opacity = '1'
+            time.style.opacity = '0'
+            hourHand.style.opacity = '0'
+
+            clearInterval(setDateInt)
+            watchReset()
+        })
+
+        // 切換時鐘
+        btnClock.addEventListener('click', function () {
+            // 元素的顯示切換
+            btnClock.disabled = true
+            btnWatch.disabled = false
+            btnClock.classList.add('white-border')
+            btnWatch.classList.remove('white-border')
+            divWatchBtns.style.display = 'none'
+            date.style.opacity = '1'
+            watchTime.style.opacity = '0'
+            time.style.opacity = '1'
+            hourHand.style.opacity = '1'
+
+            clearInterval(watchStartInt)
+            setDate()
+            setDateInt = setInterval(setDate, 500)
+        })
+
+        // 按下開始碼表
+        btnWatchStart.addEventListener('click', function () {
+            btnWatchStart.style.visibility = 'hidden'
+            btnWatchPause.style.visibility = 'visible'
+            watchStartInt = setInterval(watchStrat, 10)
+        })
+
+        // 按下暫停碼表
+        btnWatchPause.addEventListener('click', function () {
+            btnWatchStart.style.visibility = 'visible'
+            btnWatchPause.style.visibility = 'hidden'
+            clearInterval(watchStartInt)
+        })
+
+        // 按下重置碼表
+        btnWatchReset.addEventListener('click', function () {
+            watchReset()
+        })
     </script>
 </body>
 
