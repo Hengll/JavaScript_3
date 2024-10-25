@@ -417,8 +417,6 @@
             watchTime.innerText = '00:00:00'
             secondHand.style.transform = 'translate(-50%, -50%) rotate(-90deg)'
             minuteHand.style.transform = 'translate(-50%, -50%) rotate(-90deg)'
-            btnWatchStart.style.visibility = 'visible'
-            btnWatchPause.style.visibility = 'hidden'
         }
 
         // 預設跑時鐘
@@ -458,6 +456,8 @@
             watchTime.style.opacity = '0'
             time.style.opacity = '1'
             hourHand.style.opacity = '1'
+            btnWatchStart.style.visibility = 'visible'
+            btnWatchPause.style.visibility = 'hidden'
 
             clearInterval(watchStartInt)
             setDate()
